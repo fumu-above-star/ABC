@@ -1,0 +1,52 @@
+#include <iostream> //spfp
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <cmath>
+#include <map>
+#include <utility> //pair
+#include <queue>
+#include <set>
+#include <iomanip>//setprecision
+using namespace std;
+using Graph = vector<vector<int> >;
+using P = pair<int,int>;
+
+long long mod = 998244353;
+ 
+const long long INF = 1LL << 60;//LL忘れ
+const double PI = 3.1415926535;
+using ll = long long;
+
+int combination(int n, int r) 
+{
+  if ( r * 2 > n ) r = n - r;
+  int dividend = 1;
+  int divisor  = 1;
+  for (  int i = 1; i <= r; ++i ) {
+    dividend *= (n-i+1);
+    divisor  *= i;
+  }
+  return dividend / divisor;
+}
+int main()
+{
+  string s;
+  cin >> s;
+
+  map<vector<int>,long long> mp;
+  vector<int> cnt(10,0);
+  mp[cnt]++;
+
+  int slen = s.size();
+  for(int i = 0; i < slen; i++){
+    cnt[s[i] - '0']++;
+    cnt[s[i] - '0'] %= 2;
+    mp[cnt]++;
+  }
+  long long ans = 0;
+  for( auto [d,x] : mp){
+    ans += x*(x-1)/2;
+  }
+  cout << ans << endl;
+}
